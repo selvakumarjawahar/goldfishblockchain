@@ -11,7 +11,9 @@ enable_language(CXX)
 if(MSVC)
     enable_language(ASM_MASM)
 else()
-    enable_language(ASM)
+    enable_language(ASM_NASM)
+    set( CMAKE_CXX_FLAGS "-DNDEBUG -g2 -O3 -fPIC -pthread -pipe -msse4.1 -msse4.2 -maes -msha -mssse3 -mpclmul" )
+    set( CMAKE_ASM_NASM_FLAGS " -DX64 -g -f elf64 ")
 endif()
 
 add_executable(

@@ -1,3 +1,8 @@
+if (MSVC)
+    set (ASM_SOURCE_LIST src/x64dll.asm src/x64masm.asm)
+else()
+        set (ASM_SOURCE_LIST rdrand.s)
+endif()
 add_library(
     crypto
     src/3way.cpp 
@@ -103,7 +108,6 @@ add_library(
     src/rc2.cpp 
     src/rc5.cpp 
     src/rc6.cpp 
-    rdrand.asm
     src/rdrand.cpp 
     src/rdtables.cpp 
     src/rijndael-simd.cpp 
@@ -159,13 +163,12 @@ add_library(
     src/zdeflate.cpp 
     src/zinflate.cpp 
     src/zlib.cpp 
-    src/x64dll.asm 
-    src/x64masm.asm
+    ${ASM_SOURCE_LIST}
 )
 
 target_include_directories(
     crypto
-    PUBLIC include
+    PUBLIC include ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 set_target_properties(
